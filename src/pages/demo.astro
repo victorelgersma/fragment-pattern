@@ -4,25 +4,38 @@
 
 <div>
   <p id="content">Hello</p>
-  <button id="demo">Click</button>
+  <button id="demo">Click Me to Fetch Fragment</button>
 </div>
 
 <script>
-  const button = document.getElementById("demo");
+  // fetch demo framgent
+  async function fetchDemoFragment() {
+    try {
+      const response = await fetch(`/fragments/demoFragment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-  async function getDemoFragment() {
-    const demoPage = fetch(`/fragments/demoFragment`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.text());
+      if (!response.ok) {
+        throw new Error(`Failed to fetch: ${response.statusText}`);
+      }
 
-    Promise.all([demoPage]).then(([demoRes]) => {
-      const content = document.getElementById("content");
-      content.innerHTML = demoRes;
-    });
+      return await response.text();
+    } catch (error) {
+      console.error("Erorr fetching demo fragment:", error);
+      return "Error loading content";
+    }
+  }
+  // Function to update the content
+  async function updateContent() {
+    const contentElement = document.getElementById("content");
+    if (!contentElement) return;
+    const demoFragment = await fetchDemoFragment();
+    contentElement.innerHTML = demoFragment;
   }
 
-  button?.addEventListener("click", getDemoFragment);
+  const button = document.getElementById("demo");
+  button?.addEventListener("click", updateContent);
 </script>
