@@ -14,10 +14,9 @@ https://excalidraw.com/#json=AAmAkhQsizCH6yGLIrNZG,XLBeq5iB2RLNv3JX50WlyQ
 
 ## To do
 
-- [ ] compare with how HTMX does this
+- [x] compare with how HTMX does this
 - [ ] compare with how astro server islands do this
 - [ ] explore combining this with fetching data from horizon. How do we prevent many calls to horizon while also keeping the fetch to horizon on the server side
-
 
 ## Follow-up questions:
 
